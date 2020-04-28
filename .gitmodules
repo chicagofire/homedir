@@ -1,0 +1,39 @@
+[submodule ".vim/pack/github/opt/ale"]
+	path = .vim/pack/github/opt/ale
+	url = https://github.com/dense-analysis/ale.git
+[submodule ".vim/pack/github/opt/vim-airline"]
+	path = .vim/pack/github/opt/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule ".vim/pack/github/opt/supertab"]
+	path = .vim/pack/github/opt/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule ".vim/pack/github/opt/vim-lucius"]
+	path = .vim/pack/github/opt/vim-lucius
+	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule ".vim/pack/github/opt/vim-gitgutter"]
+	path = .vim/pack/github/opt/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/github/opt/vim-cpp-modern"]
+	path = .vim/pack/github/opt/vim-cpp-modern
+	url = https://github.com/bfrg/vim-cpp-modern.git
+[submodule ".vim/pack/github/opt/python-syntax"]
+	path = .vim/pack/github/opt/python-syntax
+	url = https://github.com/vim-python/python-syntax.git
+[submodule ".vim/pack/github/opt/vim-python-pep8-indent"]
+	path = .vim/pack/github/opt/vim-python-pep8-indent
+	url = https://github.com/Vimjas/vim-python-pep8-indent.git
+[submodule ".vim/pack/github/opt/quick-scope"]
+	path = .vim/pack/github/opt/quick-scope
+	url = https://github.com/unblevable/quick-scope.git
+[submodule ".vim/pack/github/opt/vim-airline-themes"]
+	path = .vim/pack/github/opt/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule ".vim/pack/github/opt/vim-grepper"]
+	path = .vim/pack/github/opt/vim-grepper
+	url = https://github.com/mhinz/vim-grepper.git
+[submodule ".vim/pack/github/opt/vim-fugitive"]
+	path = .vim/pack/github/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/pack/github/opt/fzf.vim"]
+	path = .vim/pack/github/opt/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
