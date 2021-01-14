@@ -57,8 +57,7 @@ filetype plugin on
 syntax sync fromstart
 
 " Color
-colorscheme lucius
-exe ":LuciusBlackHighContrast"
+colorscheme gruvbox
 
 " Packages
 packadd! supertab
@@ -94,6 +93,7 @@ let g:ale_linters={
     \ }
 let g:ale_cpp_gcc_options='-std=c++14 -Wall -Wextra -Wpedantic -Wconversion'
 let g:ale_python_flake8_options='--ignore=E501,W291,E722' " line too long, trailing whitespace, bare except
+let g:ale_c_parse_compile_commands=1
 
 " grep/per
 if executable('ag')
@@ -146,3 +146,4 @@ nmap <silent> <leader>g :GFiles<CR>
 nmap <silent> <leader>b :Buffers<CR>
 nmap <silent> <leader>t :Tags<CR>
 nmap <silent> <leader>T :BTags<CR>
+nmap <silent> <leader>l :Lines<CR>
