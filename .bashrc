@@ -8,24 +8,37 @@ export PAGER=/usr/bin/less
 export EDITOR=vim
 export SHELL=/bin/bash
 export HISTFILE=~/.bash_history
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ "
 
 # added by Anaconda 1.9.1 installer
 export PATH="${HOME}/anaconda/bin:$PATH"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('${HOME}/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "${HOME}/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "${HOME}/miniconda3/etc/profile.d/conda.sh"
+if [[ -z ${CONDA_SHLVL+x} ]]; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('${HOME}/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="${HOME}/miniconda3/bin:$PATH"
+        if [ -f "${HOME}/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "${HOME}/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="${HOME}/miniconda3/bin:$PATH"
+        fi
     fi
+    unset __conda_setup
+    # <<< conda initialize <<<
 fi
-unset __conda_setup
-# <<< conda initialize <<<
+
+# brew
+if [[ -f /usr/local/Homebrew/completions/bash/brew ]]; then
+    source /usr/local/Homebrew/completions/bash/brew
+fi
+
+# alacritty
+if [[ "$TERM" = "alacritty" ]]; then
+    export CLICOLOR=1
+fi
 
 if [ -f ~/.ssh/find-agent.sh ]; then
 	. ~/.ssh/find-agent.sh
@@ -35,3 +48,7 @@ if [ -f ~/.ssh/find-agent.sh ]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+if [[ -f /usr/local/bin/kitty ]]; then
+    source <(kitty + complete setup bash)
+fi
