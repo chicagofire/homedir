@@ -46,8 +46,8 @@ augroup CursorLine
     autocmd InsertLeave * set cursorline
 augroup end
 
-au FileType xml setlocal foldmethod=syntax
-let g:xml_syntax_folding=1
+" au FileType xml setlocal foldmethod=syntax
+" let g:xml_syntax_folding=1
 
 " Filetype
 syntax on
@@ -72,6 +72,9 @@ packadd! vim-python-pep8-indent
 packadd! quick-scope
 packadd! vim-grepper
 packadd! fzf.vim
+packadd! typescript-vim
+
+autocmd BufNewFile,BufRead *.ts  set filetype=typescript
 
 " gitgutter
 let g:gitgutter_terminal_reports_focus=0

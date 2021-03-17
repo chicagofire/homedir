@@ -13,21 +13,30 @@ export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ "
 # added by Anaconda 1.9.1 installer
 export PATH="${HOME}/anaconda/bin:$PATH"
 
-if [[ -z ${CONDA_SHLVL+x} ]]; then
+init_conda() {
+    MINICONDA_HOME=$1
+
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('${HOME}/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$(${MINICONDA_HOME}/condabin/conda 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
+        echo -ne "\033[0;32mInitializing conda via hook\033[0m\n"
         eval "$__conda_setup"
     else
-        if [ -f "${HOME}/miniconda3/etc/profile.d/conda.sh" ]; then
-            . "${HOME}/miniconda3/etc/profile.d/conda.sh"
+        if [ -f "${MINICONDA_HOME}/etc/profile.d/conda.sh" ]; then
+            echo -ne "\033[0;32mInitializing conda via profile.d\033[0m\n"
+            . "${MINICONDA_HOME}/etc/profile.d/conda.sh"
         else
-            export PATH="${HOME}/miniconda3/bin:$PATH"
+            echo -ne "\033[0;32mInitializing conda via path\033[0m\n"
+            export PATH="${MINICONDA_HOME}/condabin:$PATH"
         fi
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+}
+
+if [[ -d ${HOME}/miniconda3 ]]; then
+    init_conda ${HOME}/miniconda3
 fi
 
 # brew
@@ -50,5 +59,5 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [[ -f /usr/local/bin/kitty ]]; then
-    source <(kitty + complete setup bash)
+    eval "$(kitty + complete setup bash)"
 fi
