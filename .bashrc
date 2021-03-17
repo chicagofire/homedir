@@ -15,19 +15,21 @@ export PATH="${HOME}/anaconda/bin:$PATH"
 
 init_conda() {
     MINICONDA_HOME=$1
+    echo -ne "\033[0;32mInitializing conda @ $MINICONDA_HOME via"
+    
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$(${MINICONDA_HOME}/condabin/conda 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
-        echo -ne "\033[0;32mInitializing conda via hook\033[0m\n"
+        echo -ne " hook\033[0m\n"
         eval "$__conda_setup"
     else
         if [ -f "${MINICONDA_HOME}/etc/profile.d/conda.sh" ]; then
-            echo -ne "\033[0;32mInitializing conda via profile.d\033[0m\n"
+            echo -ne " profile.d\033[0m\n"
             . "${MINICONDA_HOME}/etc/profile.d/conda.sh"
         else
-            echo -ne "\033[0;32mInitializing conda via path\033[0m\n"
+            echo -ne " PATH\033[0m\n"
             export PATH="${MINICONDA_HOME}/condabin:$PATH"
         fi
     fi
