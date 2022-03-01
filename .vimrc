@@ -36,6 +36,7 @@ let showbreak='+++ '
 set splitbelow
 set splitright
 set lazyredraw
+let &t_ut=''
 
 " Auto Commands
 augroup CursorLine
