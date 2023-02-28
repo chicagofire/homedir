@@ -1,0 +1,17 @@
+.*
+Applications/
+Calibre Library/
+Desktop/
+Documents/
+Downloads/
+Google Drive
+Library/
+Movies/
+Music/
+Pictures/
+Public/
+Share/
+Sites/
+VMs/
+miniconda3/
+node_modules/
