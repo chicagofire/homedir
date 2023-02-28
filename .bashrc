@@ -15,8 +15,8 @@ export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$ "
 # added by Anaconda 1.9.1 installer
 export PATH="${HOME}/anaconda/bin:$PATH"
 
-init_conda() {
-    MINICONDA_HOME=$1
+if ! command -v conda > /dev/null 2>&1; then
+    export MINICONDA_HOME=${MINICONDA_HOME:-${HOME}/miniconda3}
     echo -ne "\033[0;32mInitializing conda @ $MINICONDA_HOME via"
     
 
@@ -37,10 +37,6 @@ init_conda() {
     fi
     unset __conda_setup
     # <<< conda initialize <<<
-}
-
-if [[ -d ${HOME}/miniconda3 ]]; then
-    init_conda ${HOME}/miniconda3
 fi
 
 # brew
