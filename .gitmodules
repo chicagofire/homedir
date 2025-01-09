@@ -46,3 +46,6 @@
 [submodule ".vim/pack/github/opt/typescript-vim"]
 	path = .vim/pack/github/opt/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
+[submodule ".asdf/repos/asdf-fd"]
+	path = .asdf/repos/asdf-fd
+	url = https://gitlab.com/wt0f/asdf-fd.git
