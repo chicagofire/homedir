@@ -74,6 +74,7 @@ packadd! quick-scope
 packadd! vim-grepper
 packadd! fzf.vim
 packadd! typescript-vim
+packadd! vim-nix
 
 autocmd BufNewFile,BufRead *.ts  set filetype=typescript
 
