@@ -15,7 +15,7 @@ if [[ "$(git config --get 'submodule..vim/pack/github/opt/ale.active')" != "true
 fi
 popd
 
-for item in .vim .bash_profile .bashrc .inputrc .tmux.conf .vimrc; do
+for item in .vim .bash_profile .bashrc .inputrc .tmux.conf .vimrc .asdf; do
 	if [[ -e $item ]]; then
 	    echo "$item exists in $HOME. moving to ${item}.bak"
 	    mv $item ${item}.bak
