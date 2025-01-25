@@ -23,7 +23,7 @@ export PATH="${HOME}/anaconda/bin:$PATH"
 #   4. conda
 # They are all in ~/.local/<name>
 #
-if [[ -d ${HOME}/.local/bin/micromamba ]]; then
+if [[ -f ${HOME}/.local/bin/micromamba ]]; then
     # >>> mamba initialize >>>
     # !! Contents within this block are managed by 'micromamba shell init' !!
     export MAMBA_EXE="${HOME}/.local/bin/micromamba";
@@ -91,6 +91,14 @@ fi
 
 if [[ -f /usr/local/bin/kitty ]]; then
     eval "$(kitty + complete setup bash)"
+fi
+
+if [[ -f $HOME/.asdf/asdf.sh ]]; then
+    . $HOME/.asdf/asdf.sh
+fi
+
+if [[ -f $HOME/.asdf/completions/asdf.bash ]]; then
+    . $HOME/.asdf/completions/asdf.bash
 fi
 
 if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
