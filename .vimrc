@@ -58,7 +58,8 @@ filetype plugin on
 syntax sync fromstart
 
 " Color
-colorscheme gruvbox
+colorscheme lucius
+LuciusDarkHighContrast
 
 " Packages
 packadd! supertab
