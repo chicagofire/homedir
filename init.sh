@@ -30,3 +30,16 @@ for plugin in bat direnv fd fzf jq ripgrep; do
     asdf install $plugin latest
     asdf global $plugin latest
 done
+
+eval "$(direnv hook bash)"
+
+# install micromamba
+#  since we've sourced bashrc already, the OS/CPU ENV args are usable
+export BIN_FOLDER=${HOME}/.local/${OS}-${CPU}/bin
+export INIT_YES=n
+export PREFIX_LOCATION=${HOME}/.local/${OS}-${CPU}/micromamba
+
+tmpfile=$(mktemp /tmp/micromamba-installer.XXXXXX.sh)
+curl -o $tmpfile -L micro.mamba.pm/install.sh
+/bin/bash < $tmpfile
+rm $tmpfile
