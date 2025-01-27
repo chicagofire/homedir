@@ -22,3 +22,11 @@ for item in .vim .bash_profile .bashrc .inputrc .tmux.conf .vimrc .asdf; do
 	fi
 	ln -s $DIR/$item $item
 done
+
+source ~/.bashrc
+
+for plugin in bat direnv fd fzf jq ripgrep; do
+    asdf plugin add $plugin
+    asdf install $plugin latest
+    asdf global $plugin latest
+done
