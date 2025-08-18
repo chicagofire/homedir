@@ -52,9 +52,7 @@ augroup end
 
 " Filetype
 syntax on
-filetype on
-filetype indent on
-filetype plugin on
+filetype plugin indent on
 syntax sync fromstart
 
 " Color
@@ -76,8 +74,14 @@ packadd! vim-grepper
 packadd! fzf.vim
 packadd! typescript-vim
 packadd! vim-nix
+packadd! vim-terraform
+packadd! vim-elixir
+packadd! tabular
 
 autocmd BufNewFile,BufRead *.ts  set filetype=typescript
+
+" modern-cpp
+let g:cpp_named_requirements_highlight=1
 
 " gitgutter
 let g:gitgutter_terminal_reports_focus=0
@@ -97,7 +101,7 @@ let g:ale_linters={
     \ 'cpp': ['gcc'],
     \ 'python': ['flake8']
     \ }
-let g:ale_cpp_gcc_options='-std=c++14 -Wall -Wextra -Wpedantic -Wconversion'
+let g:ale_cpp_gcc_options='-std=c++20 -Wall -Wextra -Wpedantic -Wconversion'
 let g:ale_python_flake8_options='--ignore=E501,W291,E722' " line too long, trailing whitespace, bare except
 let g:ale_c_parse_compile_commands=1
 
@@ -141,6 +145,10 @@ let g:fzf_tags_command = 'ctags -R --sorted=yes'
 " python syntax
 let g:python_highlight_all = 1
 let g:python_version_2 = 0
+
+" terraform/hcl
+let g:terraform_fold_sections = 1
+let g:hcl_fold_sections = 1
 
 " Grepper shortcuts
 nmap <silent> gs <Plug>(GrepperOperator)
