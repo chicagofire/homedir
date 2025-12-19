@@ -59,15 +59,49 @@ syntax sync fromstart
 colorscheme lucius
 LuciusDarkHighContrast
 
+" ale - configure before loading
+let g:ale_linters_explicit=1
+let g:ale_python_auto_pixi=1
+let g:ale_lint_on_text_changed=1
+let g:ale_lint_on_insert_leave=1
+let g:ale_set_highlights=1
+let g:ale_set_signs=1
+let g:ale_set_balloons=0
+let g:ale_linters={
+    \ 'cpp': ['gcc'],
+    \ 'python': ['ruff', 'pyright']
+    \ }
+let g:ale_fixers={
+    \ 'python': ['ruff_format']
+    \}
+let g:ale_cpp_gcc_options='-std=c++20 -Wall -Wextra -Wpedantic -Wconversion'
+let g:ale_python_flake8_options='--ignore=E501,W291,E722' " line too long, trailing whitespace, bare except
+let g:ale_c_parse_compile_commands=1
+let g:ale_python_pyright_executable='basedpyright-langserver'
+let g:ale_completion_enabled=1
+
+function! AleOverridesPyrightGetPythonPath(buffer) abort
+	" set the pythonPath based on the pixi env
+	let l:root = ale#python#FindProjectRoot(a:buffer)
+	return l:root . '/.pixi/envs/dev/bin/python'
+endfunction
+
+let g:ale_python_pyright_config = {
+\ 	'python': {
+\ 		'pythonPath': function('AleOverridesPyrightGetPythonPath')
+\ 	}
+\}
+
+
 " Packages
 packadd! supertab
 packadd! vim-airline
 packadd! vim-airline-themes
 " packadd! ctrlp
-packadd! ale
+" packadd! ale
 packadd! vim-gitgutter
 packadd! vim-cpp-modern
-packadd! python-syntax
+" packadd! python-syntax
 packadd! vim-python-pep8-indent
 packadd! quick-scope
 packadd! vim-grepper
@@ -77,6 +111,77 @@ packadd! vim-nix
 packadd! vim-terraform
 packadd! vim-elixir
 packadd! tabular
+packadd! vim-fugitive
+packadd! vim-lsp
+
+" lsp
+let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
+let g:lsp_semantic_enabled = 0
+let g:lsp_format_sync_timeout = 1000
+
+
+function! s:ty_project_root() abort
+	let l:buf_path = lsp#utils#get_buffer_path()
+	return lsp#utils#find_nearest_parent_file_directory(l:buf_path, ['pyproject.toml', 'pixi.toml'])
+endfunction
+
+function! s:ty_server_cmd_old(server_info) abort
+    let l:root = s:ty_project_root()
+
+	if empty(l:root)
+		return []
+	endif
+
+	let l:dev_env = l:root . '/.pixi/envs/dev'
+	let l:ty = l:dev_env . '/bin/ty'
+
+	if (!isdirectory(l:dev_env) || !filereadable(l:ty)) && executable('pixi')
+		call system('cd ' . shellescape(l:root) . ' && pixi install -e dev')
+		if v:shell_error
+			return []
+		endif
+	endif
+
+	return filereadable(l:ty) ? [l:ty, 'server'] : []
+endfunction
+
+function! s:ty_server_cmd(server_info) abort
+    let l:root = s:ty_project_root()
+
+	if empty(l:root)
+		return []
+	endif
+
+	if executable('pixi')
+		return ['pixi', 'run', '--manifest-path', l:root, '-e', 'dev', 'ty', 'server']
+	endif
+
+	return []
+endfunction
+
+function! s:ty_root_uri(server_info) abort
+	let l:root = s:ty_project_root()
+	return empty(l:root) ? '' : lsp#utils#path_to_uri(l:root)
+endfunction
+
+au User lsp_setup call lsp#register_server({
+\ 'name': 'ty',
+\ 'cmd': function('s:ty_server_cmd'),
+\ 'root_uri': function('s:ty_root_uri'),
+\ 'allowlist': ['python']
+\ })
+
+function! s:on_lsp_buffer_enabled() abort
+     setlocal omnifunc=lsp#complete
+     setlocal signcolumn=yes
+     nmap <buffer> gd <plug>(lsp-definition)
+     nmap <buffer> <f2> <plug>(lsp-rename)
+endfunction
+
+augroup lsp_install
+     au!
+     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 autocmd BufNewFile,BufRead *.ts  set filetype=typescript
 
@@ -90,20 +195,6 @@ let g:gitgutter_terminal_reports_focus=0
 let g:airline_theme='lucius'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-
-" ale
-let g:ale_lint_on_text_changed='never'
-let g:ale_lint_on_insert_leave=1
-let g:ale_set_highlights=0
-let g:ale_set_signs=0
-let g:ale_set_balloons=0
-let g:ale_linters={
-    \ 'cpp': ['gcc'],
-    \ 'python': ['flake8']
-    \ }
-let g:ale_cpp_gcc_options='-std=c++20 -Wall -Wextra -Wpedantic -Wconversion'
-let g:ale_python_flake8_options='--ignore=E501,W291,E722' " line too long, trailing whitespace, bare except
-let g:ale_c_parse_compile_commands=1
 
 " grep/per
 if executable('ag')
@@ -143,8 +234,8 @@ let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ctags -R --sorted=yes'
 
 " python syntax
-let g:python_highlight_all = 1
-let g:python_version_2 = 0
+" let g:python_highlight_all = 1
+" let g:python_version_2 = 0
 
 " terraform/hcl
 let g:terraform_fold_sections = 1

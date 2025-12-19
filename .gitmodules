@@ -1,6 +1,6 @@
 [submodule ".vim/pack/github/opt/ale"]
 	path = .vim/pack/github/opt/ale
-	url = https://github.com/dense-analysis/ale.git
+	url = https://github.com/chicagofire/ale.git
 [submodule ".vim/pack/github/opt/vim-airline"]
 	path = .vim/pack/github/opt/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
@@ -58,3 +58,6 @@
 [submodule ".vim/pack/github/opt/tabular"]
 	path = .vim/pack/github/opt/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule ".vim/pack/github/opt/vim-lsp"]
+	path = .vim/pack/github/opt/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp.git
